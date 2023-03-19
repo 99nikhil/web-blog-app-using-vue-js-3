@@ -1,21 +1,71 @@
 import { createRouter, createWebHistory } from "vue-router";
-import LoginView from "../views/LoginView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
-      name: "Login",
-      component: LoginView,
+      component: () => import("../views/HomeView.vue"),
+      // meta: { requiresAuth: true },
+      children: [
+        {
+          path: "/",
+          component: () => import("../views/FirstLandingPage.vue"),
+          meta: { requiresAuth: false },
+        },
+        {
+          path: "explore",
+          component: () => import("../views/HomeBlogCardsView.vue"),
+          meta: { requiresAuth: true },
+        },
+
+        {
+          path: "categories",
+          component: () => import("../views/PostCategoriesView.vue"),
+          meta: { requiresAuth: false },
+        },
+      ],
     },
     {
-      path: "/dashboard",
-      name: "dashboard",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../views/DashboardView.vue"),
+      path: "/auth/login",
+      name: "login",
+      component: () => import("../views/UserAuthViewModel.vue"),
+      meta: { requiresAuth: false },
+    },
+    {
+      path: "/auth/signup/confirmSignUp",
+      component: () => import("../views/ConfirmUserSignUpView.vue"),
+      meta: { requiresAuth: false },
+    },
+    {
+      path: "/auth/user/sendConfirmationEmail",
+      component: () => import("../views/UserConfirmationEmailView.vue"),
+      meta: { requiresAuth: false },
+    },
+
+    // {
+    //   path: "/user/login/passwordReset",
+    //   component: null,
+    // },
+    {
+      path: "/blog/user-registration",
+      component: () => import("../views/BlogPostUserRegistration.vue"),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/blog-admin",
+      component: () => import("../views/BlogEditorView.vue"),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/blog",
+      component: () => import("../views/BlogPostView.vue"),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: "/:pageNotFound(.*)*",
+      component: () => import("../views/PageNotFoundError.vue"),
+      meta: { requiresAuth: false },
     },
   ],
 });

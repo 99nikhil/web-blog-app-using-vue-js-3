@@ -1,14 +1,45 @@
-import { createApp } from "vue";
+import { createApp, provide, h, watch, defineAsyncComponent } from "vue";
+import {
+  DefaultApolloClient,
+  provideApolloClient,
+} from "@vue/apollo-composable";
+
+import getApolloClient from "./graphql/apolloClient.ts";
 
 import App from "./App.vue";
 
-import BaseInput from "./components/UIs/BaseInput.vue";
+import { QuillEditor } from "@vueup/vue-quill";
+import "@vueup/vue-quill/dist/vue-quill.snow.css";
+
 import BaseButton from "./components/UIs/BaseButton.vue";
-import registerPlugin from "./plugin/plugins.js";
+import BaseSpinner from "./components/UIs/BaseSpinner.vue";
 
-const app = createApp(App);
+import registerPlugin from "./plugin/plugins.ts";
+import BasePopover from "./components/UIs/BasePopover.vue";
+
+import "@quasar/extras/material-icons/material-icons.css";
+
+import "quasar/src/css/index.sass";
+import BaseCard from "./components/Layouts/BaseCard.vue";
+import BaseCategoryCard from "./components/UIs/BaseCategoryCard.vue";
+
+const apolloClient = await getApolloClient();
+console.log(apolloClient);
+provideApolloClient(apolloClient);
+
+const app = createApp({
+  setup() {
+    provide(DefaultApolloClient, apolloClient);
+  },
+  render: () => h(App),
+});
+
 registerPlugin(app);
-app.component("base-input", BaseInput);
-app.component("base-button", BaseButton);
+app.component("QuillEditor", QuillEditor);
 
+app.component("base-card", BaseCard);
+app.component("base-category-card", BaseCategoryCard);
+app.component("base-button", BaseButton);
+app.component("base-popover", BasePopover);
+app.component("base-spinner", BaseSpinner);
 app.mount("#app");
