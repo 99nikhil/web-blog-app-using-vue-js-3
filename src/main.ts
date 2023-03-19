@@ -40,6 +40,5 @@ app.component("QuillEditor", QuillEditor);
 app.component("base-card", BaseCard);
 app.component("base-category-card", BaseCategoryCard);
 app.component("base-button", BaseButton);
-app.component("base-popover", BasePopover);
 app.component("base-spinner", BaseSpinner);
 app.mount("#app");
