@@ -15,7 +15,6 @@ import BaseButton from "./components/UIs/BaseButton.vue";
 import BaseSpinner from "./components/UIs/BaseSpinner.vue";
 
 import registerPlugin from "./plugin/plugins.ts";
-import BasePopover from "./components/UIs/BasePopover.vue";
 
 import "@quasar/extras/material-icons/material-icons.css";
 
