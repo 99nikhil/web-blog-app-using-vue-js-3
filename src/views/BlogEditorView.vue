@@ -74,13 +74,13 @@ import { useQuery } from "@vue/apollo-composable"
 import { GET_USER_DASHBOARD_DATA } from '@/graphql/BlogQueries';
 
 
-const isEditorShown = ref(false)
-const isUpdateEditorShown = ref(false)
-const toUpdatePostId = ref('')
+const isEditorShown: Ref<Boolean> = ref(false)
+const isUpdateEditorShown: Ref<Boolean> = ref(false)
+const toUpdatePostId: Ref<any> = ref('')
 
-const { deleteABlogPost } = useBlogStore();
+const { deleteABlogPost }: any = useBlogStore();
 
-const BlogUserName = ref(localStorage.getItem('u_nm') || 'User')
+const BlogUserName: Ref<String> = ref(localStorage.getItem('u_nm') || 'User')
 
 
 const selectedAdminSetting: Ref<string> = ref("blog")
@@ -88,31 +88,31 @@ function adminSettingSelectionHandler(setting: string) {
     selectedAdminSetting.value = setting
 }
 
-const { result, loading, error } = useQuery(GET_USER_DASHBOARD_DATA, {
+const { result, loading, error }: any = useQuery(GET_USER_DASHBOARD_DATA, {
     "userId": localStorage.getItem("u_id")
 })
 console.log(result.value)
 watch(result, (val) => {
     console.log("User dashboard data: ", val)
 })
-const userDashboardBlogs = computed(() => {
+const userDashboardBlogs: any = computed(() => {
 
     return result.value?.userBlogManagementData
 })
 
-function updateEditorHandler(postId: string) {
+function updateEditorHandler(postId: string): void {
     console.log('update editor handler', postId)
     toUpdatePostId.value = postId
     isUpdateEditorShown.value = true;
 }
 
 
-function deletePostHandler(postId: string) {
+function deletePostHandler(postId: string): void {
     console.log("Deleting post id:", postId)
     deleteABlogPost(postId)
 }
 
-const userProfileData = computed(() => {
+const userProfileData: any = computed(() => {
 
     return {
 
@@ -122,7 +122,7 @@ const userProfileData = computed(() => {
 
     }
 })
-const userCommentsData = computed(() => {
+const userCommentsData: any = computed(() => {
     return result.value?.userComments
 })
 
