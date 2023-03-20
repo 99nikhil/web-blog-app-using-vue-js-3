@@ -22,22 +22,25 @@ import "quasar/src/css/index.sass";
 import BaseCard from "./components/Layouts/BaseCard.vue";
 import BaseCategoryCard from "./components/UIs/BaseCategoryCard.vue";
 
-const apolloClient = await getApolloClient();
-console.log(apolloClient);
-provideApolloClient(apolloClient);
+async function main() {
+  const apolloClient = await getApolloClient();
+  console.log(apolloClient);
+  provideApolloClient(apolloClient);
 
-const app = createApp({
-  setup() {
-    provide(DefaultApolloClient, apolloClient);
-  },
-  render: () => h(App),
-});
+  const app = createApp({
+    setup() {
+      provide(DefaultApolloClient, apolloClient);
+    },
+    render: () => h(App),
+  });
 
-registerPlugin(app);
-app.component("QuillEditor", QuillEditor);
+  registerPlugin(app);
+  app.component("QuillEditor", QuillEditor);
 
-app.component("base-card", BaseCard);
-app.component("base-category-card", BaseCategoryCard);
-app.component("base-button", BaseButton);
-app.component("base-spinner", BaseSpinner);
-app.mount("#app");
+  app.component("base-card", BaseCard);
+  app.component("base-category-card", BaseCategoryCard);
+  app.component("base-button", BaseButton);
+  app.component("base-spinner", BaseSpinner);
+  app.mount("#app");
+}
+main();
