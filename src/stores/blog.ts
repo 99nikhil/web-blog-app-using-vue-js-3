@@ -11,7 +11,7 @@ import {
   CREATE_A_NEW_BLOG_USER,
   DELETE_ONE_BLOG_POST,
   UPDATE_A_BLOG_USER,
-} from "../graphql/BlogQueries.ts";
+} from "../graphql/BlogQueries";
 // import { logErrorMessages } from "@vue/apollo-util";
 
 export const useBlogStore = defineStore("blog", () => {

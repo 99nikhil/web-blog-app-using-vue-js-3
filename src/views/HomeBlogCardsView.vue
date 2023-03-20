@@ -11,19 +11,16 @@
 
 
     </div>
-
-    <!--  title="This is title" brief="blogDescription" userID="has.dev.node" author="Suzy Ivy"
-        addedDate="2021-2-12" reading-time="8 mins" -->
 </template>
 
 <script setup lang="ts">
 import RectangularBaseCard from '@/components/UIs/RectangularBaseCard.vue';
-import { useBlogStore } from '../stores/blog.ts'
-import { onMounted, watch } from "vue"
+import { useBlogStore } from '../stores/blog'
+import { onMounted } from "vue"
 import { storeToRefs } from 'pinia';
 import { useRouter } from "vue-router"
 const router = useRouter()
-const { blogs, isInitialBlogsLoading } = storeToRefs(useBlogStore())
+const { blogs, isInitialBlogsLoading }: any = storeToRefs(useBlogStore())
 
 function redirectToSingleBlogPost(postId: string) {
 

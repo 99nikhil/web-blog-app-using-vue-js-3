@@ -2,13 +2,14 @@
     <div class="relative top-36 flex flex-col items-center dark:bg-black dark:text-white">
         <div class=" w-[75%] m-auto p-5 mb-4">
             <div class="flex flex-col items-center gap-5 mb-7">
-                <img :src="blog?.coverImage" class="w-[700px] h-[500px]" alt="coverImage">
+                <q-img :src="blog?.coverImage" class="w-[700px] h-[500px]" spinner-color="white" />
 
                 <h2 class="text-center text-5xl font-medium "> {{ blog?.title }}</h2>
                 <div class="flex flex-row items-center gap-4">
                     <q-avatar class="cursor-pointer">
-                        <img :src="blog?.author?.profilePhoto || 'https://pbs.twimg.com/profile_images/1608062426775441410/_InEziap_400x400.jpg'"
-                            alt="avatar">
+                        <q-img
+                            :src="blog?.author?.profilePhoto || 'https://pbs.twimg.com/profile_images/1608062426775441410/_InEziap_400x400.jpg'"
+                            spinner-color="white " />
                     </q-avatar>
 
                     <h6 class="text-md text-gray-900 font-medium  "> &bull; {{ new Date(blog?.updatedAt).toDateString() ||
@@ -98,11 +99,11 @@ import BaseCard from "../Layouts/BaseCard.vue"
 import { v4 as uuidv4 } from 'uuid';
 import * as Realm from "realm-web"
 
-import { useBlogCommentStore } from "@/stores/blogComment.ts";
+import { useBlogCommentStore } from "@/stores/blogComment";
 
 import { watch, computed } from "vue"
 import { useQuery } from "@vue/apollo-composable";
-import { BLOG_POSTS_BY_AUTHOR_ID } from "../../graphql/BlogQueries.ts"
+import { BLOG_POSTS_BY_AUTHOR_ID } from "../../graphql/BlogQueries"
 
 import { useRouter } from "vue-router";
 interface Blog {
@@ -155,7 +156,7 @@ function addUserCommentHandler(comment: string) {
         },
         text: comment,
         author: {
-            link: new BSON.ObjectID(localStorage.getItem("u_obj_id"))
+            link: new BSON.ObjectID(localStorage.getItem("u_obj_id") || "")
         }
     }
 

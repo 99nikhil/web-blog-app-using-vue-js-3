@@ -4,7 +4,7 @@ import {
   ADD_ONE_BLOG_USER_COMMENT,
   UPDATE_ONE_BLOG_COMMENT,
   DELETE_A_BLOG_COMMENT,
-} from "../graphql/BlogQueries.ts";
+} from "../graphql/BlogQueries";
 
 export const useBlogCommentStore = defineStore("blogComment", () => {
   async function updateOneBlogComment(

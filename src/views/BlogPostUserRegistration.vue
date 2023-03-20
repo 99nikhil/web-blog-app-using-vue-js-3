@@ -59,10 +59,10 @@
 import { ref, type Ref } from "vue"
 import Logo from "@/components/UIs/Logo.vue";
 import { useRouter } from "vue-router";
-import { useUserStore } from "../stores/user.ts"
+import { useUserStore } from "../stores/user"
 import { storeToRefs } from "pinia";
 import { useMutation } from "@vue/apollo-composable";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import { useBlogStore } from "@/stores/blog";
 const router = useRouter()
 

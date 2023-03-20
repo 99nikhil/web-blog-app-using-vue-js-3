@@ -79,13 +79,13 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from '../stores/user.ts'
-import { ref, watch, inject } from "vue"
+import { useUserStore } from '../stores/user'
+import { ref, watch } from "vue"
 import { useQuasar } from 'quasar';
 import { storeToRefs } from 'pinia';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { useQuery } from "@vue/apollo-composable"
-import { CHECK_BLOG_USER_THERE } from "../graphql/BlogQueries.ts"
+import { CHECK_BLOG_USER_THERE } from "../graphql/BlogQueries"
 
 const loginEmail = ref("");
 const loginPassword = ref("")
@@ -102,10 +102,10 @@ const confirmSignupPassword = ref("")
 
 const router = useRouter()
 
+const $q = useQuasar()
 
 watch(userSignUpErrorLog, (val) => {
     if (val === 'success') {
-
         router.push("/auth/user/sendConfirmationEmail")
     } else if (val) {
         alertSignUpError(val)
@@ -126,8 +126,6 @@ function resetSignUpForm() {
     signupPassword.value = "";
     confirmSignupPassword.value = "";
 }
-const $q = useQuasar()
-
 function alertLoginError() {
     $q.notify({
         type: 'negative',

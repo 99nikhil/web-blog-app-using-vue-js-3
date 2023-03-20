@@ -24,14 +24,8 @@
     </q-card>
 </template>
 <script setup lang="ts">
-interface Author {
-    name: string,
-    profilePhoto: string,
-    userBio: string
-}
-const { author } = defineProps({
-    author: Object as Author
-})
+
+const { author }: any = defineProps(["author"])
 console.log("author ", author)
 
 

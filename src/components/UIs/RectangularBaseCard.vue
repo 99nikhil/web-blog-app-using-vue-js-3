@@ -38,7 +38,7 @@
 
             <q-card-actions>
                 <q-btn flat round color="green" icon="bookmark" />
-                <q-badge v-for="tag in blog.tags" class="mr-2" color="teal" outline rounded :label="tag" />
+                <q-badge v-for="tag in blog.tags" class="mr-2" color="teal" :label="tag" />
             </q-card-actions>
         </q-card>
 
@@ -50,26 +50,14 @@
 import { ref, computed } from 'vue';
 const emit = defineEmits(["blog-post-click"])
 
-interface Blog {
-    author: Object,
-    brief: String,
-    content: String,
-    coverImage: String,
-    createdAt?: Date,
-    postComments?: Array<Object>,
-    title: String,
-    tags: Array<String>,
-
-    updatedAt?: Date,
-}
-const { blog } = defineProps({
-    blog: Object as Blog
-})
+const { blog }: any = defineProps(["blog"])
 
 
 const postAge = computed(() => {
-    const timeDiff: any = new Date() - new Date(blog?.createdAt)
-    const diffInDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    const now: any = new Date()
+    const postDateOfCreation: any = new Date(blog?.updatedAt || blog?.createdAt)
+    const timeDiff: any = (now - postDateOfCreation)
+    const diffInDays: any = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
     const diffInHours = Math.floor(timeDiff / (1000 * 60 * 60)) % 24;
     const diffInMinutes = Math.floor(timeDiff / (1000 * 60)) % 60;
     return { diffInDays, diffInHours, diffInMinutes }
@@ -83,17 +71,5 @@ const postAge = computed(() => {
 
 
 
-
-// import RoundedAvatar from './RoundedAvatar.vue';
-
-// interface Blog {
-//     title: String,
-//     author: String,
-//     brief: String,
-//     addedDate: String,
-//     userID?: String,
-//     readingTime?: String
-// }
-// const { title, author, brief, addedDate, userID } = defineProps<Blog>()
 
 </script>

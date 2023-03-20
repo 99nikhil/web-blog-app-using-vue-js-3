@@ -7,27 +7,16 @@
       <router-view></router-view>
     </div>
 
-
-
-
   </div>
-
-
-<!-- <user-login-form>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </user-login-form> -->
 </template>
 
 <script setup lang="ts">
 
 import Header from "../components/Layouts/Header.vue";
-import Footer from "../components/Layouts/Footer.vue";
 import TheSideBar from "../components/Layouts/TheSideBar.vue";
-import { useBlogStore } from '../stores/blog.ts'
-import { storeToRefs } from "pinia";
+import { useBlogStore } from '../stores/blog'
 import { onMounted } from "vue"
 const { getBlogPosts } = useBlogStore()
-const { isInitialBlogsLoading } = storeToRefs(useBlogStore())
-
 
 onMounted(() => {
 

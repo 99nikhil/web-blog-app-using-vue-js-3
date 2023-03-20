@@ -1,10 +1,10 @@
-import { createApp, provide, h, watch, defineAsyncComponent } from "vue";
+import { createApp, provide, h } from "vue";
 import {
   DefaultApolloClient,
   provideApolloClient,
 } from "@vue/apollo-composable";
 
-import getApolloClient from "./graphql/apolloClient.ts";
+import getApolloClient from "./graphql/apolloClient";
 
 import App from "./App.vue";
 
@@ -14,11 +14,11 @@ import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import BaseButton from "./components/UIs/BaseButton.vue";
 import BaseSpinner from "./components/UIs/BaseSpinner.vue";
 
-import registerPlugin from "./plugin/plugins.ts";
+import registerPlugin from "./plugin/plugins";
 
 import "@quasar/extras/material-icons/material-icons.css";
-
 import "quasar/src/css/index.sass";
+
 import BaseCard from "./components/Layouts/BaseCard.vue";
 import BaseCategoryCard from "./components/UIs/BaseCategoryCard.vue";
 

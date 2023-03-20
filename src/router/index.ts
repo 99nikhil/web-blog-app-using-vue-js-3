@@ -18,12 +18,6 @@ const router = createRouter({
           component: () => import("../views/HomeBlogCardsView.vue"),
           meta: { requiresAuth: true },
         },
-
-        {
-          path: "categories",
-          component: () => import("../views/PostCategoriesView.vue"),
-          meta: { requiresAuth: false },
-        },
       ],
     },
     {
@@ -42,11 +36,6 @@ const router = createRouter({
       component: () => import("../views/UserConfirmationEmailView.vue"),
       meta: { requiresAuth: false },
     },
-
-    // {
-    //   path: "/user/login/passwordReset",
-    //   component: null,
-    // },
     {
       path: "/blog/user-registration",
       component: () => import("../views/BlogPostUserRegistration.vue"),

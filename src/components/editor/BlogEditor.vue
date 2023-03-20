@@ -1,6 +1,4 @@
 <template>
-  <!-- <div class=" relative  ">
-  </div> -->
   <div class=" z-50 absolute top-2 w-full h-[1200px]  bg-white mb-[10rem] ">
 
     <div class=" relative w-[600px] m-auto p-6 border-2 border-teal-400 rounded-md ">
@@ -51,11 +49,11 @@
 
 
 
-      <q-btn v-if="editorMode === 'create'" class="my-5" @click="createBlogPostHandler" rounded label="create post"
+      <q-btn v-if="editorMode === 'create'" class="my-5" @click="createBlogPostHandler" label="create post"
         color="primary"></q-btn>
-      <q-btn v-else-if="editorMode === 'edit'" class="my-5" @click="updatePostHandler" rounded label="Update post"
+      <q-btn v-else-if="editorMode === 'edit'" class="my-5" @click="updatePostHandler" label="Update post"
         color="orange"></q-btn>
-      <q-btn @click="emit('close-editor-dialog')" rounded label="cancel" class="mx-3" color="teal"></q-btn>
+      <q-btn @click="emit('close-editor-dialog')" label="cancel" class="mx-3" color="teal"></q-btn>
     </div>
 
 
@@ -67,7 +65,7 @@ import { onMounted, watch } from 'vue';
 import { useQuery, useMutation } from "@vue/apollo-composable";
 import { Quill, QuillEditor } from '@vueup/vue-quill'
 import gql from "graphql-tag";
-import { useBlogStore } from "../../stores/blog.ts";
+import { useBlogStore } from "../../stores/blog";
 import { ref, type Ref } from "vue"
 import BlotFormatter from 'quill-blot-formatter'
 
@@ -77,7 +75,7 @@ import * as Realm from "realm-web";
 
 
 
-const { allUserBlogs, editorMode, postId } = defineProps({
+const { allUserBlogs, editorMode, postId }: any = defineProps({
   allUserBlogs: {
     type: Array,
     required: false
@@ -148,7 +146,7 @@ function updatePostHandler() {
     "tags": blogTags?.value?.toUpperCase().split("|"),
     "readingTime": blogReadingTime.value,
     "postId": postId,
-    "author": { link: new BSON.ObjectID(localStorage.getItem("u_obj_id")) },
+    "author": { link: new BSON.ObjectID(localStorage.getItem("u_obj_id") || "") },
     "createdAt": createdAt,
     "coverImage": oldCoverImage.value
   }
@@ -179,7 +177,7 @@ function createBlogPostHandler() {
     "tags": blogTags.value.toUpperCase().split("|"),
     "postId": uuidv4(),
     "readingTime": blogReadingTime.value,
-    "author": { link: new BSON.ObjectID(localStorage.getItem("u_obj_id")) }
+    "author": { link: new BSON.ObjectID(localStorage.getItem("u_obj_id") || "") }
   }
 
   if (coverImageFile.value !== null) {
@@ -191,7 +189,6 @@ function createBlogPostHandler() {
       console.log("Blog data", blogData)
       createABlogPost(blogData)
       resetBlogEditor();
-      // console.log("Uploaded image in data format", base64CoverImage)
     }
   }
 

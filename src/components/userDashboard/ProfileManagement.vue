@@ -34,7 +34,6 @@
 
 import { ref, type Ref } from "vue"
 import { useBlogStore } from "@/stores/blog";
-import { read } from "@popperjs/core";
 
 const { updateABlogUser } = useBlogStore()
 const { name, profilePhoto, userBio } = defineProps({
@@ -75,10 +74,10 @@ function updateProfileHandler() {
             updatedUserData.profilePhoto = base64Img
             console.log("Updating user profile :", updatedUserData)
 
-            updateABlogUser(localStorage.getItem("u_id"), updatedUserData)
+            updateABlogUser(localStorage.getItem('u_id') || "", updatedUserData)
         }
     } else {
-        updateABlogUser(localStorage.getItem("u_id"), updatedUserData)
+        updateABlogUser(localStorage.getItem("u_id") || "", updatedUserData)
 
     }
 }

@@ -11,10 +11,6 @@
         </svg>
         <span class="sr-only">Loading...</span>
     </div>
-
-    <!-- fill-blue-600 -->
-    <!-- fill-gray-600 dark -->
-    <!-- fill-green-500 -->
 </template>
 <script setup lang="ts">
 

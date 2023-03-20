@@ -69,7 +69,7 @@ import DashboardSidebar from '@/components/userDashboard/DashboardSidebar.vue';
 
 import { useBlogStore } from '@/stores/blog';
 
-import { ref, type Ref, watch, computed, unref } from "vue"
+import { ref, type Ref, watch, computed } from "vue"
 import { useQuery } from "@vue/apollo-composable"
 import { GET_USER_DASHBOARD_DATA } from '@/graphql/BlogQueries';
 

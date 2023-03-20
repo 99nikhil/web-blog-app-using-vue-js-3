@@ -18,31 +18,26 @@
 import BlogPostHeader from '@/components/blogPost/BlogPostHeader.vue';
 import BlogMainContent from '@/components/blogPost/BlogMainContent.vue';
 import { useRoute } from "vue-router"
-import { ref, onMounted, watch, computed } from "vue"
-import { useBlogStore } from "@/stores/blog.ts"
-import { useQuery, useMutation } from "@vue/apollo-composable";
+import { ref, watch, computed } from "vue"
+import { useQuery } from "@vue/apollo-composable";
 import {
     GET_A_BLOG_POST_QUERY,
-} from "../graphql/BlogQueries.ts";
+} from "../graphql/BlogQueries";
 
 const isLoading = ref(true)
 
 const route = useRoute()
 const { result, loading, error } = useQuery(GET_A_BLOG_POST_QUERY, {
-
     id: route.query.postId
-
-
 })
 if (result.value) {
     isLoading.value = false
 }
-console.log("RESULT 1 ", result.value)
+
 
 
 watch(result, (newVal) => {
     result.value = newVal
-    console.log("Watching .... ", newVal)
     if (result.value) {
         isLoading.value = false
     }
@@ -55,13 +50,4 @@ const postComments = computed(() => {
     return result.value?.postComments
 })
 
-
-
-
-// const blog = ref(null)
-// console.log("Single Post view", route.query.postId)
-
-// onMounted(() => {
-//     getBlog()
-// })
 </script>
