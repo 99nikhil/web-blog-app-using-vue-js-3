@@ -91,7 +91,6 @@ function adminSettingSelectionHandler(setting: string) {
 const { result, loading, error }: any = useQuery(GET_USER_DASHBOARD_DATA, {
     "userId": localStorage.getItem("u_id")
 })
-console.log(result.value)
 watch(result, (val) => {
     console.log("User dashboard data: ", val)
 })
