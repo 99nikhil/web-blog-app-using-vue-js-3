@@ -66,7 +66,7 @@ export const useUserStore = defineStore("user", () => {
         email,
         password,
       });
-      console.log("new user creating ... ed", newUser);
+
       signUpUserEmail.value = email;
       userSignUpErrorLog.value = "success";
     } catch (err: any) {
@@ -83,7 +83,6 @@ export const useUserStore = defineStore("user", () => {
         token,
         tokenId,
       });
-      console.log("user sign up confirm status: ", confirmStatus);
       isUserSignUpConfirmed.value = true;
       return confirmStatus;
     } catch (error) {

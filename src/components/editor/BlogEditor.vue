@@ -1,7 +1,7 @@
 <template>
-  <div class=" z-50 absolute top-2 w-full h-[1200px]  bg-white mb-[10rem] ">
+  <div class=" z-50 fixed top-2 left-0 w-full h-full  bg-white mb-[10rem] overflow-y-auto overflow-x-hidden">
 
-    <div class=" relative w-[600px] m-auto p-6 border-2 border-teal-400 rounded-md ">
+    <div class=" relative w-[700px] m-auto p-6 border-2 border-teal-400 rounded-md my-10">
       <h1
         class="text-center text-[42px] text-transparent bg-gradient-to-r from-[#c71e57] via-[#da3418] to-[#2c6bb1] bg-clip-text font-bold ">
         Editor
@@ -16,9 +16,9 @@
           <div class="text-teal-900 text-lg text-teal-600 font-semibold  mt-1">Brief </div>
           <q-input name="title" placeholder="Enter a brief about your blog" v-model="blogBrief"></q-input>
           <div class="text-teal-900 text-lg text-teal-600 font-semibold  mt-1">Tags </div>
-          <q-input name="title" placeholder="Enter some tags seperated by | " v-model="blogTags"
-            hint="Give a | for each tag"></q-input>
-          <div class="text-teal-900 text-lg text-teal-600 font-semibold  mt-1">Redading time </div>
+          <q-input name="title" placeholder="Enter some tags seperated by a space " v-model="blogTags"
+            hint="Give a space for each tag"></q-input>
+          <div class="text-teal-900 text-lg text-teal-600 font-semibold  mt-1">Reading time </div>
           <q-input name="title" placeholder="Enter your expected reading time a reader might take "
             v-model="blogReadingTime" hint="Expected reading time"></q-input>
           <div v-if="editorMode === 'edit'">
@@ -43,9 +43,11 @@
       </div>
 
 
+      <div>
 
-      <quill-editor ref="editor" :modules="modules" class="min-h-[350px]  border-2 border-gray-400 rounded-md my-4"
-        v-model:content="editorBlogContent" toolbar="full" contentType="html"></quill-editor>
+        <quill-editor ref="editor" :modules="modules" class="min-h-[350px]  border-2 border-gray-400 rounded-md my-4"
+          v-model:content="editorBlogContent" toolbar="full" contentType="html"></quill-editor>
+      </div>
 
 
 
@@ -61,10 +63,8 @@
 </template>
 <script setup lang="ts">
 
-import { onMounted, watch } from 'vue';
-import { useQuery, useMutation } from "@vue/apollo-composable";
-import { Quill, QuillEditor } from '@vueup/vue-quill'
-import gql from "graphql-tag";
+import { QuillEditor } from '@vueup/vue-quill'
+
 import { useBlogStore } from "../../stores/blog";
 import { ref, type Ref } from "vue"
 import BlotFormatter from 'quill-blot-formatter'
@@ -89,10 +89,6 @@ const { allUserBlogs, editorMode, postId }: any = defineProps({
     required: false
   }
 })
-// const postId = "7553c921-49a8-462a-8770-536608cb028e"
-
-// console.log("all User blogs", allUserBlogs[0])
-// console.log("postid", postId)
 const { title, brief, tags, coverImage, content, readingTime, createdAt }: any = allUserBlogs ? allUserBlogs?.find((blog: any) => blog?.postId === postId) :
 
   {
@@ -105,7 +101,6 @@ const { title, brief, tags, coverImage, content, readingTime, createdAt }: any =
     createdAt: ""
   }
 
-console.log("created at editor :", createdAt)
 const { BSON } = Realm
 const emit = defineEmits(["close-editor-dialog"])
 
@@ -120,11 +115,12 @@ const editorBlogContent: Ref<string> = ref(content || "")
 const blogReadingTime: Ref<string> = ref(readingTime || "")
 
 
-const { getBlogPosts, createABlogPost, updateABlogPost } = useBlogStore()
+const { createABlogPost, updateABlogPost } = useBlogStore()
 
 const modules: any = {
   name: 'blotFormatter',
   module: BlotFormatter,
+  options: null
 }
 
 function resetBlogEditor() {
@@ -133,7 +129,7 @@ function resetBlogEditor() {
   blogTags.value = ""
   blogReadingTime.value = ""
   coverImageFile.value = ""
-  editor.value.setContents("")
+  editor.value.setContents(null)
 }
 
 function updatePostHandler() {
@@ -143,7 +139,7 @@ function updatePostHandler() {
     "brief": blogBrief.value,
     "content": editorBlogContent.value,
     "updatedAt": new Date().toISOString(),
-    "tags": blogTags?.value?.toUpperCase().split("|"),
+    "tags": blogTags?.value?.toUpperCase().split(" "),
     "readingTime": blogReadingTime.value,
     "postId": postId,
     "author": { link: new BSON.ObjectID(localStorage.getItem("u_obj_id") || "") },
@@ -158,7 +154,6 @@ function updatePostHandler() {
       updateBlogData.coverImage = base64CoverImage;
       updateABlogPost(postId, updateBlogData)
       resetBlogEditor()
-      // console.log("Uploaded image in data format", base64CoverImage)
     }
   } else {
     updateABlogPost(postId, updateBlogData)

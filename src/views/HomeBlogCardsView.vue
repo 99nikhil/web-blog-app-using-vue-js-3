@@ -16,22 +16,15 @@
 <script setup lang="ts">
 import RectangularBaseCard from '@/components/UIs/RectangularBaseCard.vue';
 import { useBlogStore } from '../stores/blog'
-import { onMounted } from "vue"
 import { storeToRefs } from 'pinia';
 import { useRouter } from "vue-router"
 const router = useRouter()
 const { blogs, isInitialBlogsLoading }: any = storeToRefs(useBlogStore())
 
 function redirectToSingleBlogPost(postId: string) {
-
-    console.log("card clicking", postId)
     router.push(`/blog?postId=${postId}`)
 }
 
-
-onMounted(() => {
-    console.log("Blogs in home blogs view", blogs.value)
-})
 
 
 

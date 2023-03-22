@@ -24,7 +24,7 @@ import BaseCategoryCard from "./components/UIs/BaseCategoryCard.vue";
 
 async function main() {
   const apolloClient = await getApolloClient();
-  console.log(apolloClient);
+
   provideApolloClient(apolloClient);
 
   const app = createApp({

@@ -29,7 +29,7 @@ export const useBlogStore = defineStore("blog", () => {
       }
     );
 
-    console.log("creating  a post ", createPost());
+    createPost();
   }
 
   async function deleteABlogPost(postId: string) {
@@ -38,7 +38,7 @@ export const useBlogStore = defineStore("blog", () => {
         postId: postId,
       },
     });
-    console.log("Deleting a blog post: ", deletePost());
+    deletePost();
   }
 
   async function updateABlogPost(postId: string, updatePostData: any) {
@@ -49,7 +49,7 @@ export const useBlogStore = defineStore("blog", () => {
         updateBlogData: updatePostData,
       },
     });
-    console.log("Update a post:", updatePost());
+    updatePost();
     onError((err) => {
       console.log("Updating a blog error :", err);
     });
@@ -61,7 +61,7 @@ export const useBlogStore = defineStore("blog", () => {
         userProfileData: userProfileData,
       },
     });
-    console.log("updating blog user : ", updateBlogUser());
+    updateBlogUser();
   }
 
   async function createABlogUser(newBlogUserData: any) {
@@ -80,7 +80,7 @@ export const useBlogStore = defineStore("blog", () => {
       console.log(err);
     });
 
-    console.log("Creating a new blog user: ", createBlogUser());
+    createBlogUser();
   }
 
   async function getBlogPosts() {
@@ -95,8 +95,6 @@ export const useBlogStore = defineStore("blog", () => {
     watch(result, (newValue) => {
       blogs.value = newValue;
       isInitialBlogsLoading.value = false;
-
-      console.log("Querying blogs:", newValue);
     });
   }
 

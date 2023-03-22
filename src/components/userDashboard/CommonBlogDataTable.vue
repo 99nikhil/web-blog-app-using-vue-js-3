@@ -1,11 +1,13 @@
 <template>
-    <div class="w-[800px] h-[180px] bg-white shadow-md  rounded-3xl my-3 ">
+    <div class="w-[800px] h-[210px] bg-white shadow-md  rounded-3xl my-3 overflow-y-auto ">
 
-        <div class="flex flex-row gap-4 justify-center ">
-            <div class=" flex  items-center  min-w-[420px]  w-[500px] max-w-full h-[75px] max-h-[85px] p-2 my-4">
-                <h3 class="text-lg my-1 text-teal-700">{{ title }}</h3>
-                <h3 class="text-lg my-1 text-orange-600   overflow-y-hidden">{{ brief }}</h3>
-                <h3 class="text-lg text-purple-600 "><span>Last updated at:</span> {{ new Date(createdAt).toDateString() }}
+        <div class="flex flex-row gap-4 justify-center">
+            <div
+                class=" flex  items-center justify-center  min-w-[420px]  w-[500px] max-w-full h-[75px] max-h-[85px] p-2 my-4">
+                <h3 class="text-lg my-1 text-green-900 font-medium ">{{ title }}</h3>
+                <h3 class="text-lg my-1 text-gray-900 font-medium overflow-y-hidden">{{ brief }}</h3>
+                <h3 class="text-lg text-purple-600 font-medium"><span>Last updated at:</span> {{ new
+                    Date(createdAt).toDateString() }}
                 </h3>
 
             </div>

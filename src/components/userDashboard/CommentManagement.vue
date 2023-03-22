@@ -9,8 +9,6 @@
         <div class="grid grid-cols-2 grid-flow-row gap-2">
             <CommonAdminCommentCard @delete-comment="deleteCommentHandler" @update-comment="updateCommentHandler"
                 v-for="(comment, i) in userComments?.comments" :key="i" :comment="comment" />
-
-
         </div>
     </div>
 </template>
@@ -19,13 +17,12 @@ import CommonAdminCommentCard from "./CommonAdminCommentCard.vue"
 import { useBlogCommentStore } from "@/stores/blogComment";
 const { updateOneBlogComment, deleteOneBlogComment } = useBlogCommentStore()
 const userComments = defineProps(["comments"])
-console.log("Comments ", userComments.comments)
+
+
 function updateCommentHandler(commentId: string, commentText: string) {
-    console.log("updating comment", commentId, commentText)
     updateOneBlogComment(commentId, commentText)
 }
 function deleteCommentHandler(commentId: string) {
-    console.log("Deleting comment", commentId)
     deleteOneBlogComment(commentId)
 }
 

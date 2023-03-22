@@ -102,8 +102,6 @@ function newBlogUserRegistrationHandler() {
 
     }
 
-    // router.push("/blog")
-
 }
 
 </script>

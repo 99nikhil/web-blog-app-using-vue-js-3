@@ -11,7 +11,6 @@ export const useBlogCommentStore = defineStore("blogComment", () => {
     commentId: string,
     updateCommentText: string
   ) {
-    console.log("comment Id", commentId);
     const { mutate: updateComment, onError } = useMutation(
       UPDATE_ONE_BLOG_COMMENT,
       {
@@ -35,7 +34,6 @@ export const useBlogCommentStore = defineStore("blogComment", () => {
     deleteBlog();
   }
   async function insertOneBlogComment(userCommentData: any) {
-    console.log("Recieving ", userCommentData);
     const { mutate: insertComment, onError } = await useMutation(
       ADD_ONE_BLOG_USER_COMMENT,
       {
@@ -47,7 +45,7 @@ export const useBlogCommentStore = defineStore("blogComment", () => {
     onError((err) => {
       console.log("comment mutation error: ", err);
     });
-    console.log("Adding a comment: ", insertComment());
+    insertComment();
   }
 
   return {

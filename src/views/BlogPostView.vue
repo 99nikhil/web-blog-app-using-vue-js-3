@@ -18,7 +18,7 @@
 import BlogPostHeader from '@/components/blogPost/BlogPostHeader.vue';
 import BlogMainContent from '@/components/blogPost/BlogMainContent.vue';
 import { useRoute } from "vue-router"
-import { ref, watch, computed } from "vue"
+import { ref, type Ref, watch, computed, onMounted } from "vue"
 import { useQuery } from "@vue/apollo-composable";
 import {
     GET_A_BLOG_POST_QUERY,
@@ -26,28 +26,44 @@ import {
 
 const isLoading = ref(true)
 
-const route = useRoute()
-const { result, loading, error } = useQuery(GET_A_BLOG_POST_QUERY, {
-    id: route.query.postId
-})
-if (result.value) {
-    isLoading.value = false
+const route: any = useRoute()
+const newBlogPost: Ref<any> = ref(null)
+
+
+
+function getBlogNow() {
+    const { result, loading, error } = useQuery(GET_A_BLOG_POST_QUERY, {
+        id: route.query.postId
+    })
+
+    watch(result, (newVal) => {
+        console.log("Blog post: ", newVal)
+        newBlogPost.value = newVal
+        if (result.value) {
+            isLoading.value = false
+        }
+    })
+
 }
+onMounted(() => {
+    getBlogNow()
 
-
-
-watch(result, (newVal) => {
-    result.value = newVal
-    if (result.value) {
-        isLoading.value = false
-    }
 })
+watch(route, (val) => {
+    getBlogNow()
+})
+
+
+
+
+
+
 const blog = computed(() => {
-    return result.value?.blogPost
+    return newBlogPost.value?.blogPost
 })
 
 const postComments = computed(() => {
-    return result.value?.postComments
+    return newBlogPost.value?.postComments
 })
 
 </script>

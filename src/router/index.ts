@@ -1,7 +1,14 @@
 import { createRouter, createWebHistory } from "vue-router";
-
+// import.meta.env.BASE_URL;
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { top: 2 };
+    }
+  },
   routes: [
     {
       path: "/",
@@ -27,7 +34,7 @@ const router = createRouter({
       meta: { requiresAuth: false },
     },
     {
-      path: "/auth/signup/confirmSignUp",
+      path: "/auth/signup/confirmSignUp/",
       component: () => import("../views/ConfirmUserSignUpView.vue"),
       meta: { requiresAuth: false },
     },

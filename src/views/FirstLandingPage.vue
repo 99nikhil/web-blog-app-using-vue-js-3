@@ -20,8 +20,8 @@
                 Blog on a custom domain, own your content and share your ideas with the world.
                 Get started - it's free!</h3>
         </div>
-        <div class="p-4 mt-7">
-            <q-img width="400px" height="400px"
+        <div class="p-2 mt-6">
+            <q-img width="390px" height="390px"
                 src="https://cdn.hashnode.com/res/hashnode/image/upload/v1643230111752/uv4w72h8g.png?auto=compress" />
         </div>
     </div>

@@ -35,13 +35,10 @@
                     <CommonBlogDataTable @delete-post="deletePostHandler" @show-update-editor="updateEditorHandler"
                         v-for="{ title, createdAt, brief, postId, updatedAt } in userDashboardBlogs" :key="postId"
                         :title="title" :brief="brief" :createdAt="updatedAt || createdAt || ''" :postId="postId" />
-
-                    <div class="w-full">
-
-                        <BlogEditor :postId="toUpdatePostId" :all-user-blogs="userDashboardBlogs" editorMode="edit"
-                            v-if="isUpdateEditorShown" @close-editor-dialog="isUpdateEditorShown = false" />
-                    </div>
-
+                </template>
+                <template #blog-editor>
+                    <BlogEditor :postId="toUpdatePostId" :all-user-blogs="userDashboardBlogs" editorMode="edit"
+                        v-if="isUpdateEditorShown" @close-editor-dialog="isUpdateEditorShown = false" />
 
                 </template>
 
@@ -80,7 +77,7 @@ const toUpdatePostId: Ref<any> = ref('')
 
 const { deleteABlogPost }: any = useBlogStore();
 
-const BlogUserName: Ref<String> = ref(localStorage.getItem('u_nm') || 'User')
+const BlogUserName: Ref<String> = ref(localStorage.getItem('u_nm') || '')
 
 
 const selectedAdminSetting: Ref<string> = ref("blog")
@@ -92,7 +89,7 @@ const { result, loading, error }: any = useQuery(GET_USER_DASHBOARD_DATA, {
     "userId": localStorage.getItem("u_id")
 })
 watch(result, (val) => {
-    console.log("User dashboard data: ", val)
+
 })
 const userDashboardBlogs: any = computed(() => {
 
@@ -100,14 +97,13 @@ const userDashboardBlogs: any = computed(() => {
 })
 
 function updateEditorHandler(postId: string): void {
-    console.log('update editor handler', postId)
     toUpdatePostId.value = postId
     isUpdateEditorShown.value = true;
 }
 
 
 function deletePostHandler(postId: string): void {
-    console.log("Deleting post id:", postId)
+
     deleteABlogPost(postId)
 }
 

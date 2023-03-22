@@ -101,49 +101,40 @@ import * as Realm from "realm-web"
 
 import { useBlogCommentStore } from "@/stores/blogComment";
 
-import { watch, computed } from "vue"
+import { watch, ref } from "vue"
 import { useQuery } from "@vue/apollo-composable";
 import { BLOG_POSTS_BY_AUTHOR_ID } from "../../graphql/BlogQueries"
 
 import { useRouter } from "vue-router";
-interface Blog {
-    author: Object,
-    brief: String,
-    content: String,
-    coverImage: String,
-    createdAt?: Date,
-    postComments?: Array<Object>,
-    title: String,
-    tags: Array<String>,
 
-    updatedAt?: Date,
-}
 const router = useRouter()
 const { blog, postComments } = defineProps(["blog", "postComments"])
-console.log("One blog post view:", blog.author)
+
 const { insertOneBlogComment } = useBlogCommentStore();
 
-console.log("user id", blog?.author?.userId)
+
 const { result, loading, error } = useQuery(BLOG_POSTS_BY_AUTHOR_ID, {
 
     authorId: blog?.author?.userId
 
 })
 watch(result, (val) => {
-    console.log("getting blogs by author name", val)
-
+    result.value = val
+    console.log("blogs by author id ", val)
+    relatedBlogs.value = getRelatedBlogs();
 })
 
+const relatedBlogs = ref(getRelatedBlogs() || "")
 
-const relatedBlogs = computed(() => {
-    return result.value?.blogPosts.filter((blg: any) => blg?.title !== blog?.title);
-})
+function getRelatedBlogs(title = blog?.title) {
+    return result.value?.blogPosts.filter((blg: any) => blg?.title !== title);
+}
+
 const { BSON } = Realm;
 
-function relatedBlogPostHandler(postid: string) {
-    // console.log("base card post id", postid)
-    window.open(`/blog?postId=${postid}`, "_blank")
-    // router.push(`/blog?postId=${postid}`)
+function relatedBlogPostHandler(postid: string, blogTitle: string) {
+    router.push(`/blog?postId=${postid}`)
+    relatedBlogs.value = getRelatedBlogs(blogTitle)
 }
 
 

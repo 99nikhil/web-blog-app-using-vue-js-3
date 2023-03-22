@@ -1,5 +1,5 @@
 <template>
-    <div @click="emit('go-to-blog-post', blog?.postId)"
+    <div @click="emit('go-to-blog-post', blog?.postId, blog?.title)"
         class="w-[350px] my-4 cursor-pointer shadow-md  dark:bg-black dark:text-white">
 
         <q-card v-ripple flat bordered>

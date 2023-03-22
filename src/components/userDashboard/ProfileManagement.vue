@@ -57,9 +57,6 @@ const newUserBio: Ref<string> = ref(userBio || "")
 const oldProfilePhoto: Ref<string> = ref(profilePhoto || "")
 const newProfilePhoto: Ref<any> = ref(null)
 function updateProfileHandler() {
-
-
-
     const updatedUserData: any = {
         userBio: newUserBio.value,
         name: newUserName.value,
@@ -72,8 +69,6 @@ function updateProfileHandler() {
         reader.onload = () => {
             const base64Img = reader.result
             updatedUserData.profilePhoto = base64Img
-            console.log("Updating user profile :", updatedUserData)
-
             updateABlogUser(localStorage.getItem('u_id') || "", updatedUserData)
         }
     } else {

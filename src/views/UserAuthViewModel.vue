@@ -120,7 +120,6 @@ function resetLoginForm() {
     loginPassword.value = ""
 }
 
-
 function resetSignUpForm() {
     signupEmail.value = "";
     signupPassword.value = "";
@@ -141,8 +140,6 @@ function alertSignUpError(errLog: string) {
 }
 
 async function userLoginHandler() {
-    console.log("This is auth view model")
-
     const status = await userLogin(loginEmail.value, loginPassword.value)
     resetLoginForm()
     if (status === "loginError") {
@@ -151,9 +148,9 @@ async function userLoginHandler() {
         const { result } = useQuery(CHECK_BLOG_USER_THERE, {
             "loginEmail": loginUserEmail.value
         })
-        console.log("login success : ", loginUserEmail.value)
+
         watch(result, (val) => {
-            console.log("blog registration query", val)
+
             if (val?.blogUser?.userId) {
                 localStorage.setItem("u_id", val.blogUser.userId)
                 localStorage.setItem("u_obj_id", val.blogUser._id)

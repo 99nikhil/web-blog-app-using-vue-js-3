@@ -1,5 +1,5 @@
 <template>
-    <div class="mb-[10rem] ">
+    <div class="mb-[10rem] w-">
 
         <div class="bg-white rounded-lg p-4">
 
@@ -18,13 +18,16 @@
         </div>
 
 
-        <div class=" flex flex-col items-center">
+        <div class="flex flex-col items-center">
 
             <slot name="blogDataTable">
 
             </slot>
 
         </div>
+
+        <slot name="blog-editor"></slot>
+
     </div>
 </template>
 <script setup lang="ts">

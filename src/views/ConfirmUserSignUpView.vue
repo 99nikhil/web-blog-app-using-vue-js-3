@@ -43,9 +43,6 @@ const { isUserSignUpConfirmed } = storeToRefs(useUserStore())
 const { isThereUserConfirmError } = storeToRefs(useUserStore())
 const { confirmUserSignUp } = useUserStore();
 const route: any = useRoute();
-
-
-console.log("Route params", route.query)
 onMounted(() => {
     confirmUserSignUp(route?.query?.token, route?.query?.tokenId)
 })

@@ -6,7 +6,6 @@ import { ref } from 'vue';
 
 const isProfileDialogShown: any = ref(false)
 function logoutHandler() {
-  console.log("User logging out")
   localStorage.clear()
 }
 
